@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, Any
+import numbers
 
 @dataclass
 class Color:
@@ -24,6 +25,23 @@ class Color:
 
 class Shape(ABC):
     """Abstract base class for all shapes."""
+    # MAGIC METHODS
+    @abstractmethod
+    def __init__(self) -> None:
+        """Instantiate a shape."""
+        ...
+
+    @abstractmethod
+    def __str__(self) -> str:
+        """String representation of a Shape for a user."""
+        ...
+
+    @abstractmethod
+    def __repr__(self) -> str:
+        """String representation of a Shape for a developer."""
+        ...
+
+    # ATTRIBUTES
     @property
     @abstractmethod
     def name(self) -> str:
@@ -42,13 +60,13 @@ class Shape(ABC):
 
     @property
     @abstractmethod
-    def sides(self) -> list[int | float]:
+    def sides(self) -> tuple[int | float]:
         """A list containing the side lengths of a shape."""
         ...
     
     @sides.setter
     @abstractmethod
-    def sides(self, value: list[int | float]) -> None:
+    def sides(self, value: tuple[int | float]) -> None:
         """Set a shape's sides."""
         ...
     
@@ -57,25 +75,24 @@ class Shape(ABC):
     def angles(self) -> list[int | float]:
         """A list containing the angles of a shape in degrees."""
         ...
-    
-    @angles.setter
+
+    @property
     @abstractmethod
-    def angles(self, value: list[int | float]) -> None:
-        """Set a shape's angles."""
+    def area(self) -> int | float:
+        """A shape's area in square inches."""
         ...
 
     @property
     @abstractmethod
-    def area(self) -> float:
-        """A shape's area in square inches."""
+    def perimeter(self) -> int | float:
         ...
 
-    @abstractmethod
-    def __init__(self) -> None:
-        """Instantiate a shape by giving its side lengths"""
-        ...
-
+    # METHODS
     @abstractmethod
     def scale(self, scaling_factor: float | int, how: Literal["area", "sides"]) -> None:
         """Scales an object by either its sides or area."""
         ...
+
+def isnumeric(val: Any) -> bool:
+    """Returns true if a value is a float or integer (numeric)."""
+    return isinstance(val, numbers.Number) and not isinstance(val, bool)
