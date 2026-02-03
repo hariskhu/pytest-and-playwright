@@ -18,7 +18,7 @@ class Color:
                 raise ValueError(f"{color.capitalize()} value must be between 0 and 255 inclusive.")
             
     def __str__(self) -> str:
-        return f"({self.red}, {self.green}.{self.blue})"
+        return f"({self.red}, {self.green}, {self.blue})"
     
     def __repr__(self) -> str:
         return f"Color(red={self.red}, green={self.green}, blue={self.blue})"
@@ -119,7 +119,7 @@ class Shape(ABC):
 
     # METHODS
     @abstractmethod
-    def scale(self, scaling_factor: float | int, how: Literal["area", "sides"]) -> None:
+    def scale(self, scaling_factor: float | int, *, how: Literal["area", "sides"]) -> None:
         """Scales an object by either its sides or area."""
         ...
     
