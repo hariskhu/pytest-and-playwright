@@ -1,4 +1,4 @@
-from .shape import Shape, Color, isnumeric
+from .shape import Shape, isnumeric
 from typing import Literal, Any
 import math
 
@@ -21,14 +21,14 @@ class Circle(Shape):
         """String representation of a Circle for a user."""
         return (
             f"{self._name} the Circle: r = {self._radius} {self._unit}, d = {self._radius * 2} {self._unit}"
-            f"C = {self._circumference} {self.unit}, A = {self.area()} {self._unit}^2 color = {self._color!s}"
+            f"C = {self._circumference} {self.unit}, A = {self.area()} {self._unit}^2, color = {self._color!s}"
         )
 
     def __repr__(self) -> str:
         """String representation of a Circle for a developer."""
         return (
             f"Circle(name={self.name!r}, unit={self._unit!r}, color={self._color!r}, "
-            f"radius={self._radius!r}, circumference={self._circumference!r}, area={self.area()!r}"
+            f"radius={self._radius!r}, circumference={self._circumference!r})"
         )
     
     # ATTRIBUTES
@@ -76,7 +76,7 @@ class Circle(Shape):
     def scale(self, scaling_factor: float | int, *, how: Literal["area", "radius", "circumference"] = "radius") -> None:
         """Scales a Circle based on area, radius, or circumference."""
         if not isnumeric(scaling_factor):
-            raise TypeError("scale expects 'scaling_factor' to be of type int or float")
+            raise TypeError("scale() expects 'scaling_factor' to be of type int or float")
         if scaling_factor <= 0:
             raise ValueError(f"scale() expects 'scaling_factor' to be greater than 0, but received {scaling_factor!r}")
         if not isinstance(how, str):
