@@ -3,10 +3,10 @@ from typing import Literal, Any
 import math
 
 class Circle(Shape):
-    """Class defining implementation of the Circle Shape."""
+    """Class defining the Circle Shape."""
     def __init__(self, *, radius: int | float = None, circumference: int | float = None) -> None:
-        """Instatiate a Circle"""
-        super.__init__()
+        """Instatiates a Circle."""
+        super().__init__()
 
         if radius and circumference:
             raise TypeError("Circle() expects one of 'radius' or 'circumference', but received both")
@@ -21,7 +21,7 @@ class Circle(Shape):
         """String representation of a Circle for a user."""
         return (
             f"{self._name} the Circle: r = {self._radius} {self._unit}, d = {self._radius * 2} {self._unit}"
-            f"C = {self._circumference} {self.unit}, color {self._color!s}"
+            f"C = {self._circumference} {self.unit}, A = {self.area()} {self._unit}^2 color = {self._color!s}"
         )
 
     def __repr__(self) -> str:
@@ -31,7 +31,7 @@ class Circle(Shape):
             f"radius={self._radius!r}, circumference={self._circumference!r}, area={self.area()!r}"
         )
     
-    # PROPERTIES
+    # ATTRIBUTES
     @property
     def circumference(self) -> int | float:
         """Circumference of a Circle."""

@@ -97,7 +97,7 @@ class Shape(ABC):
         self._sides = sides
 
     @abstractmethod
-    def _validate_sides(sides: tuple[int | float]) -> None:
+    def _validate_sides(self, sides: tuple[int | float]) -> None:
         """Validates a new sides tuple."""
         ...
     
