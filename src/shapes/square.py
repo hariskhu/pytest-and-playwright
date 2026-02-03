@@ -1,5 +1,5 @@
 from .shape import Shape, isnumeric
-from typing import Literal, Any
+from typing import Literal
 import math
 
 class Square(Shape):
