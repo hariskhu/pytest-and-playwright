@@ -34,6 +34,30 @@ class Shape(ABC):
         self._angles = ()
         self._unit = "in"
 
+    def __eq__(self, other: Any) -> bool:
+        """Defines == operator with Shapes."""
+        return True and bool(other)
+    
+    def __ne__(self, other: Any) -> bool:
+        """Defines != operator with Shapes."""
+        return not (True and bool(other))
+    
+    def __lt__(self, other: Any) -> bool:
+        """Defines < operator with Shapes."""
+        return self.area() < other
+    
+    def __gt__(self, other: Any) -> bool:
+        """Defines > operator with Shapes."""
+        return self.area() > other
+    
+    def __lt__(self, other: Any) -> bool:
+        """Defines <= operator with Shapes."""
+        return self.area() <= other
+    
+    def __gt__(self, other: Any) -> bool:
+        """Defines >= operator with Shapes."""
+        return self.area() >= other
+
     @abstractmethod
     def __str__(self) -> str:
         """String representation of a Shape for a user."""
