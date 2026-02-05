@@ -84,7 +84,7 @@ class Circle(Shape):
             
         match how.lower():
             case "area":
-                area = self.area() * scaling_factor
+                area: int | float = self.area() * scaling_factor
                 self._radius = math.sqrt(area / math.pi)
                 self._circumference = 2 * self._radius * math.pi
             case "radius":

@@ -52,20 +52,20 @@ class TestCircleOperators:
         (2, 0.5, False),
         (2, 1, False),
         (2, 1.5, False),
-        (2, 2, False),
-        (2, 2.5, True),
-        (2, 3, True),
+        (2, 2, True),
+        (2, 2.5, False),
+        (2, 3, False),
     ])
     def test_circle_eq(self, left: int | float, right: int | float, expected: bool) -> None:
         left_circle: Circle = Circle(radius=left)
         right_circle: Circle = Circle(radius=right)
         
-        assert left_circle == right_circle == expected
+        assert (left_circle == right_circle) == expected
 
     @pytest.mark.parametrize("left,right,expected", [
-        (2, 0.5, False),
-        (2, 1, False),
-        (2, 1.5, False),
+        (2, 0.5, True),
+        (2, 1, True),
+        (2, 1.5, True),
         (2, 2, False),
         (2, 2.5, True),
         (2, 3, True),
@@ -74,7 +74,7 @@ class TestCircleOperators:
         left_circle: Circle = Circle(radius=left)
         right_circle: Circle = Circle(radius=right)
         
-        assert left_circle != right_circle == expected
+        assert (left_circle != right_circle) == expected
 
     @pytest.mark.parametrize("left,right,expected", [
         (2, 0.5, False),
@@ -88,13 +88,13 @@ class TestCircleOperators:
         left_circle: Circle = Circle(radius=left)
         right_circle: Circle = Circle(radius=right)
         
-        assert left_circle < right_circle == expected
+        assert (left_circle < right_circle) == expected
 
     @pytest.mark.parametrize("left,right,expected", [
         (2, 0.5, False),
         (2, 1, False),
         (2, 1.5, False),
-        (2, 2, False),
+        (2, 2, True),
         (2, 2.5, True),
         (2, 3, True),
     ])
@@ -102,7 +102,7 @@ class TestCircleOperators:
         left_circle: Circle = Circle(radius=left)
         right_circle: Circle = Circle(radius=right)
         
-        assert left_circle <= right_circle == expected
+        assert (left_circle <= right_circle) == expected
 
     @pytest.mark.parametrize("left,right,expected", [
         (2, 0.5, True),
@@ -116,7 +116,7 @@ class TestCircleOperators:
         left_circle: Circle = Circle(radius=left)
         right_circle: Circle = Circle(radius=right)
         
-        assert left_circle > right_circle == expected
+        assert (left_circle > right_circle) == expected
 
     @pytest.mark.parametrize("left,right,expected", [
         (2, 0.5, True),
@@ -130,4 +130,4 @@ class TestCircleOperators:
         left_circle: Circle = Circle(radius=left)
         right_circle: Circle = Circle(radius=right)
         
-        assert left_circle >= right_circle == expected
+        assert (left_circle >= right_circle) == expected

@@ -22,6 +22,15 @@ class Color:
     
     def __repr__(self) -> str:
         return f"Color(red={self.red}, green={self.green}, blue={self.blue})"
+    
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, Color):
+            return NotImplemented
+        return all([
+            self.red == other.red,
+            self.green == other.green,
+            self.blue == other.blue
+        ])
 
 class Shape(ABC):
     """Abstract base class for all shapes."""
@@ -34,29 +43,45 @@ class Shape(ABC):
         self._angles = ()
         self._unit = "in"
 
+    def __bool__(self) -> bool:
+        """Allows boolean typecasting for Shapes."""
+        return True
+    
+    def __int__(self) -> int:
+        """Allows integer typecasting for Shapes."""
+        return int(self.area())
+    
+    def __float__(self) -> float:
+        """Allows float typecasting for Shapes."""
+        return float(self.area())
+
     def __eq__(self, other: Any) -> bool:
         """Defines == operator with Shapes."""
-        return True and bool(other)
+        if isinstance(other, type(self)):
+            return self.area() == other.area()
+        return bool(self) and bool(other)
     
     def __ne__(self, other: Any) -> bool:
         """Defines != operator with Shapes."""
-        return not (True and bool(other))
+        if isinstance(other, type(self)):
+            return self.area() != other.area()
+        return not (bool(self) and bool(other))
     
     def __lt__(self, other: Any) -> bool:
         """Defines < operator with Shapes."""
-        return self.area() < other
+        return self.area() < float(other)
     
     def __gt__(self, other: Any) -> bool:
         """Defines > operator with Shapes."""
-        return self.area() > other
+        return self.area() > float(other)
     
-    def __lt__(self, other: Any) -> bool:
+    def __le__(self, other: Any) -> bool:
         """Defines <= operator with Shapes."""
-        return self.area() <= other
+        return self.area() <= float(other)
     
-    def __gt__(self, other: Any) -> bool:
+    def __ge__(self, other: Any) -> bool:
         """Defines >= operator with Shapes."""
-        return self.area() >= other
+        return self.area() >= float(other)
 
     @abstractmethod
     def __str__(self) -> str:
@@ -89,7 +114,7 @@ class Shape(ABC):
     @color.setter
     def color(self, color: Color) -> None:
         """Sets a shapes's color."""
-        for field in color.fields():
+        for field in fields(color):
             value = getattr(color, field)
             if not (isinstance(value, int) and not (isinstance(value, bool))):
                 raise TypeError(f"Value of {field} must be an integer")
